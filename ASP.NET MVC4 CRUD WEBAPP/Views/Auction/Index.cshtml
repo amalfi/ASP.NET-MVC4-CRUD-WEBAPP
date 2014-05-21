@@ -1,0 +1,18 @@
+﻿@model IEnumerable<ASP.NET_MVC4_CRUD_WEBAPP.Models.Auction>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+@foreach (var item in Model)
+{
+    @Html.Partial("_AuctionTile" ,item)
+}
+
