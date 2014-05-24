@@ -1,49 +1,42 @@
-﻿@{
-    var auction = new ASP.NET_MVC4_CRUD_WEBAPP.Models.Auction()
-    {
-        Title="Example Auction",
-        Description = "This is an example Auction",
-        StartTime=DateTime.Now,
-        EndTime = DateTime.Now.AddDays(7),
-        StartPrice = 1.00m,
-        CurrentPrice = null,
-   
-        
-    };
+﻿@model ASP.NET_MVC4_CRUD_WEBAPP.Models.Auction
+@{
+    var auction = Model;
 }
 
-<a href="@Url.Action("Login", "Account")">Login</a>
+@Html.ActionLink("Login", "Login", "Account")
 
 <div class="auction">
-    <h3>@auction.Title</h3>
-    
-            <div class="details">
-                <p>Start Time: @auction.StartTime.ToString("g")</p>
-                <p>End Time :  @auction.EndTime.ToString("g")</p>
-                <p>Starting Price :  @auction.StartPrice.ToString("C")</p>
-            
-            <p>Current Price: </p>
-                @if(auction.CurrentPrice==null)
-                {
-                    
-                    @:[No bids]
-                }
-                else
-                {
-                    <span>@auction.CurrentPrice.Value.ToString("C")</span>
-                }
-            
-            </div>
 
-    @if (auction.ImageUrl != null)
-    {
-        <img src="@auction.ImageUrl" title="@auction.Title" />
+     <h3>@auction.Title</h3>
+
+    <div class="details">
+       <p>Start Time: @auction.StartTime.ToString("g")</p>
+       <p>End Time: @auction.EndTime.ToString("g")</p>
+       <p>Starting Price: @auction.StartPrice.ToString("C")</p>
+       <p>Current Price:
+           @*
+               Since CurrentPrice is nullable we have to check to
+               see if it has a value before we call .ToString()!
+           *@
+           @if(auction.CurrentPrice == null)
+           {
+               <text>
+               [No bids]
+               </text>
+           }
+           else
+           {
+               <span>@auction.CurrentPrice.Value.ToString("C")</span>
+           }
+       </p>
+    </div>
+
+    @if(auction.ImageUrl != null) {
+       <img src="@auction.ImageUrl" title="@auction.Title" />
     }
 
     <div class="description">
-        @auction.Description
+       @auction.Description
     </div>
-
-
 
 </div>

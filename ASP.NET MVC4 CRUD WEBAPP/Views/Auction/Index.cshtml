@@ -1,18 +1,32 @@
 ﻿@model IEnumerable<ASP.NET_MVC4_CRUD_WEBAPP.Models.Auction>
 
 @{
-    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutWithSidebar.cshtml";
+    ViewBag.Title = "Auctions";
 }
 
-<h2>Index</h2>
+@section Sidebar {
+    <h3>This is my sidebar!</h3>
+}
+
+@section Featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            This is some featured content!
+        </div>
+    </section>
+}
+
+@section Scripts {
+    <!-- This content will be rendered in the Scripts section -->
+}
+
+<h2>@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
-
-@foreach (var item in Model)
-{
-    @Html.Partial("_AuctionTile" ,item)
+@foreach (var item in Model) {
+    @Html.Partial("_AuctionTile", item)
 }
-

@@ -754,3 +754,13 @@ tr.pager td {
             margin: 0;
         }
 }
+
+.sidebar {
+    width: 15em;
+    margin: 1em;
+    padding: 1em;
+    min-height: 30em;
+    float: left;
+    background: #ccc;
+    border: 1px inset #666;
+}
