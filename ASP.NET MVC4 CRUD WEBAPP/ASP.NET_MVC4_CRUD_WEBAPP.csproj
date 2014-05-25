@@ -190,6 +190,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Auction.cs" />
+    <Compile Include="Models\AuctionsDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +308,7 @@
     <Content Include="Views\Auction\Index.cshtml" />
     <Content Include="Views\Shared\_AuctionTile.cshtml" />
     <Content Include="Views\Shared\_LayoutWithSidebar.cshtml" />
+    <Content Include="Views\Auction\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

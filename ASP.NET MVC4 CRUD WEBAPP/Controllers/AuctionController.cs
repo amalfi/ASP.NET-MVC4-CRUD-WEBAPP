@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ASP.NET_MVC4_CRUD_WEBAPP.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,46 +9,48 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
 {
     public class AuctionController : Controller
     {
+
         //
-        // GET: /Auction/
+        // GET: /Auctions/
 
         public ActionResult Index()
         {
-            var auctions = new[]{
-                new Models.Auction()
-                {
-                    Title="Example Auction #1",
-                    Description= "This is an example Auction",
-                    StartTime=DateTime.Now,
-                    EndTime=DateTime.Now.AddDays(7),
-                    StartPrice =1.00m,
-                    CurrentPrice=null,
-                },
-                new Models.Auction()
-                {
-                    Title="Example Auction #2",
-                    Description="This is a second Auction",
-                    StartTime = DateTime.Now,
-                    EndTime=DateTime.Now.AddDays(7),
-                    StartPrice=1.00m,
-                    CurrentPrice=30m,
-                }
-
-            };
+            var db = new AuctionsDataContext();
+            var auctions = db.Auctions.ToArray();
 
             return View(auctions);
         }
 
-        public ActionResult TempDataDemo()
+        public ActionResult Auction(long id)
         {
-            TempData["SuccessMessage"] = "The action succeeded!";
-            return RedirectToAction("Index");
+            var db = new AuctionsDataContext();
+            var auction = db.Auctions.Find(id);
+
+            return View(auction);
         }
 
-        public ActionResult Auction()
+        [HttpGet]
+        public ActionResult Create()
         {
+            var categoryList = new SelectList(new[] { "Automotive", "Electronics", "Games", "Home" });
+            ViewBag.CategoryList = categoryList;
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Create([Bind(Exclude = "CurrentPrice")]Models.Auction auction)
+        {
+            if (ModelState.IsValid)
+            {
+                // Save to the database
+                var db = new AuctionsDataContext();
+                db.Auctions.Add(auction);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return Create();
+        }
     }
 }
