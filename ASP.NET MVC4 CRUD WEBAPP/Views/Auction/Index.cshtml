@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<ASP.NET_MVC4_CRUD_WEBAPP.Models.Auction>
-
 @{
     Layout = "~/Views/Shared/_LayoutWithSidebar.cshtml";
     ViewBag.Title = "Auctions";
@@ -27,6 +26,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     @Html.Partial("_AuctionTile", item)
 }
