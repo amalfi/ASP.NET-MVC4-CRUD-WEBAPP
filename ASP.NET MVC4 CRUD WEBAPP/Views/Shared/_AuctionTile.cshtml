@@ -6,4 +6,7 @@
     <p class="price">Price: 
         @Model.CurrentPrice.GetValueOrDefault(Model.StartPrice).ToString("C")
     </p>
+    <div>
+        @Html.ActionLink("Get me to the binding section", "Auction/"+@Model.Id )
+    </div>
 </div>

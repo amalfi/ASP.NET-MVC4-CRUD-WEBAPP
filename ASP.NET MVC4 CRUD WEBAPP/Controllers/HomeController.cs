@@ -6,11 +6,12 @@ using System.Web.Mvc;
 
 namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            ViewBag.Message = "Today is " + DateTime.Now;
 
             return View();
         }

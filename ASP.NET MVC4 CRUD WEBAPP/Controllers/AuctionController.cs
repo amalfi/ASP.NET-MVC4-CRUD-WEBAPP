@@ -14,7 +14,8 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
 
         //
         // GET: /Auctions/
-
+        [AllowAnonymous]
+        [OutputCache(Duration=1)]
         public ActionResult Index()
         {
             var db = new AuctionsDataContext();
@@ -23,6 +24,7 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
             return View(auctions);
         }
 
+         [OutputCache(Duration = 10)]
         public ActionResult Auction(long id)
         {
             var db = new AuctionsDataContext();
@@ -66,8 +68,8 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
             ViewBag.CategoryList = categoryList;
             return View();
         }
-
         [HttpPost]
+        [Authorize]
         public ActionResult Create([Bind(Exclude = "CurrentPrice")]Models.Auction auction)
         {
             if (ModelState.IsValid)
