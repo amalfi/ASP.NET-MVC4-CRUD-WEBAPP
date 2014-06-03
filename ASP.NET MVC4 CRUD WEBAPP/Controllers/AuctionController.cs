@@ -84,5 +84,17 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
 
             return Create();
         }
+        public ActionResult Delete(long id)
+        {
+            var db = new AuctionsDataContext();
+            var auction = db.Auctions.Find(id);
+
+            db.Auctions.Remove(auction);
+            db.SaveChanges();
+
+            var auctions = db.Auctions.ToArray();
+
+            return RedirectToAction("Index");
+        }
     }
 }
