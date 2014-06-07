@@ -39,6 +39,28 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
              return View(auctions);
         }
 
+        public ActionResult FinishedAuctions()
+        {
+            var db = new AuctionsDataContext();
+            var auctionsAll = db.Auctions.ToArray();
+            var auctions = new List<Auction>();
+
+
+            foreach (Auction auction in auctionsAll)
+            {
+                if (String.IsNullOrEmpty(auction.IsFinished) != true )
+                {
+                    String auctionIsFinished = auction.IsFinished;
+                    if (auctionIsFinished.Equals("Yes"))
+                    {
+                        auctions.Add(auction);
+                    }
+                }
+            }
+
+            return View(auctions);
+        }
+
          [OutputCache(Duration = 10)]
         public ActionResult Auction(long id)
         {
@@ -122,7 +144,7 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
             { 
                var auction = db.Auctions.Find(id);
                auction.IsFinished = "Yes";
-              //  auction.AuctionWinner = "test4";
+               auction.AuctionWinner = "test4";
                 db.SaveChanges();
             }
             catch (DbEntityValidationException e)

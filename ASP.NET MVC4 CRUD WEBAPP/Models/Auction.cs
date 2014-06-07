@@ -18,7 +18,7 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Models
         public string Category { get; set; }
 
         [DataType(DataType.Text)]
-        [StringLength(maximumLength: 400, MinimumLength = 5)]
+        [StringLength(maximumLength: 400, MinimumLength = 1)]
         public string AuctionWinner{ get; set; }
 
         [DataType(DataType.Text)]
@@ -31,12 +31,12 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Models
 
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(maximumLength: 300, MinimumLength = 5)]
+        [StringLength(maximumLength: 300, MinimumLength = 1)]
         public string AuctionCreator { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(maximumLength: 200, MinimumLength = 5)]
+        [StringLength(maximumLength: 200, MinimumLength = 1)]
         public string Title { get; set; }
 
         [DataType(DataType.MultilineText)]
@@ -76,6 +76,9 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Models
         {
             Bids = new Collection<Bid>();
             IsFinished = "No";
+            AuctionCreator = "None";
+            AuctionWinner = "None";
+            LastBindingPerson = "None";
         }
 
     }
