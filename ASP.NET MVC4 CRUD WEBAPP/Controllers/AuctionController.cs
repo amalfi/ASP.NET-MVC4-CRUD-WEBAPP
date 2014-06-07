@@ -114,6 +114,7 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
             {
                 // Save to the database
                 var db = new AuctionsDataContext();
+                String CurrentUser = System.Web.HttpContext.Current.User.Identity.Name.ToString(); //pobranie aktualnie zalogowanego Usera
                 db.Auctions.Add(auction);
                 db.SaveChanges();
 
@@ -144,7 +145,7 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
             { 
                var auction = db.Auctions.Find(id);
                auction.IsFinished = "Yes";
-               auction.AuctionWinner = "test4";
+               auction.LastBindingPerson =  System.Web.HttpContext.Current.User.Identity.Name.ToString();;
                 db.SaveChanges();
             }
             catch (DbEntityValidationException e)
@@ -154,5 +155,17 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
             }
             return RedirectToAction("Index");
         }
+        
+       /*
+        public String ChooseAuctionWinner(Bid bid)
+        {
+            String AuctionWinner = "";
+            //jeżeli wylicytujesz wiekszą lub równą kwotę maksymalnej : wygrywasz
+            //Jeżeli inny koleś użytkownika - wygrywasz
+            //Jeżeli ty przerwiesz - przegrywasz
+
+            return AuctionWinner;
+        }
+       */
     }
 }

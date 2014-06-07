@@ -104,8 +104,13 @@
                    url: form.attr('action'),
                    data: form.serialize()
                })
-                   .success(function (html) {
-                       alert("You stopped the binding");
+                   .success(function (html)
+                   {
+                       var answer = confirm ("You stopped the binding");
+                       if (answer)
+                        {
+                           window.location = "http://localhost:3306/Auction";
+                        }
                    })
                    .error(function () {
                        alert("Error during binding stopped");
