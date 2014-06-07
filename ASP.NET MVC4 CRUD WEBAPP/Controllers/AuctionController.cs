@@ -1,6 +1,7 @@
 ﻿﻿using ASP.NET_MVC4_CRUD_WEBAPP.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -19,9 +20,23 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
         public ActionResult Index()
         {
             var db = new AuctionsDataContext();
-            var auctions = db.Auctions.ToArray();
+            var auctionsAll = db.Auctions.ToArray();
+            var auctions = new List<Auction>();
+             
 
-            return View(auctions);
+         foreach(Auction auction in auctionsAll)
+         {
+             if (String.IsNullOrEmpty(auction.IsFinished)!=true)
+             { 
+                 String auctionIsFinished = auction.IsFinished;
+                     if (auctionIsFinished.Equals("No"))
+                     {
+                         auctions.Add(auction);
+                     }
+             }
+         }
+
+             return View(auctions);
         }
 
          [OutputCache(Duration = 10)]
@@ -52,6 +67,7 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
                 bid.Username = User.Identity.Name;
                 auction.Bids.Add(bid);
                 auction.CurrentPrice = bid.Amount;
+                auction.LastBindingPerson = bid.Username;
                 db.SaveChanges();
             }
 
@@ -94,6 +110,26 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
 
             var auctions = db.Auctions.ToArray();
 
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult StopBinding(Bid bid) //method which set record in database ('cancelled' for 'true')
+        {
+            var db = new AuctionsDataContext();
+            long id = bid.AuctionId;
+            string CurrentWinner = bid.Username;
+            try
+            { 
+               var auction = db.Auctions.Find(id);
+               auction.IsFinished = "Yes";
+              //  auction.AuctionWinner = "test4";
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                    Console.WriteLine(e.StackTrace);
+                throw;
+            }
             return RedirectToAction("Index");
         }
     }

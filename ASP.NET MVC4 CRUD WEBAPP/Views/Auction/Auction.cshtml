@@ -8,6 +8,7 @@
     <h3>@auction.Title</h3>
 
     <div class="details">
+        <p>Description : @auction.Description</p>
         <p>Start Time: @auction.StartTime.ToString("g")</p>
         <p>End Time: @auction.EndTime.ToString("g")</p>
         <p>Starting Price: @auction.StartPrice.ToString("C")</p>
@@ -29,6 +30,13 @@
                 <span>[@auction.BidCount bids]</span>
             }
         </p>
+        @if (auction.ImageUrl != null)
+        {
+            <img src="@auction.ImageUrl" title="@auction.Title" />
+        }
+        
+<!--Buttons section begin-->
+
         <p>
             @using (Html.BeginForm("Bid", "Auction"))
             {
@@ -43,22 +51,26 @@
                 <input class="post-bid" type="submit" value="Bid" />
             }
         </p>
-    </div>
+    
+        <p>
+            @using (Html.BeginForm("StopBinding", "Auction"))
+            {
+               
+                @Html.Hidden("auctionId", auction.Id)
 
-    @if (auction.ImageUrl != null)
-    {
-        <img src="@auction.ImageUrl" title="@auction.Title" />
-    }
+                <input class="post-bid2" type="submit" value="Stop bidding " />
+            }
+        </p>
+    
+        <!--Buttons section END-->
 
-    <div class="description">
-        @auction.Description
-    </div>
-
+    </div>  
 </div>
 
 @section Scripts {
    <script type="text/javascript">
-        $(function () {
+       $(function ()
+       {
             $('.post-bid').on("click", function ()
             {
 
@@ -80,6 +92,27 @@
 
                 return false;
             });
-        });
+       });
+
+       $(function () {
+           $('.post-bid2').on("click", function () {
+
+               var form = $(this).parent("form");
+
+               $.ajax({
+                   type: "POST",
+                   url: form.attr('action'),
+                   data: form.serialize()
+               })
+                   .success(function (html) {
+                       alert("You stopped the binding");
+                   })
+                   .error(function () {
+                       alert("Error during binding stopped");
+                   });
+
+               return false;
+           });
+       });
     </script>
 }

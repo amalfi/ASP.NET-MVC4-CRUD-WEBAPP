@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -15,6 +16,23 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Models
         [Required]
         [DataType(DataType.Text)]
         public string Category { get; set; }
+
+        [DataType(DataType.Text)]
+        [StringLength(maximumLength: 400, MinimumLength = 5)]
+        public string AuctionWinner{ get; set; }
+
+        [DataType(DataType.Text)]
+        [StringLength(maximumLength: 400, MinimumLength = 1)]
+        public string IsFinished { get; set; }
+
+        [DataType(DataType.Text)]
+        [StringLength(maximumLength: 400, MinimumLength = 1)]
+        public string LastBindingPerson { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [StringLength(maximumLength: 300, MinimumLength = 5)]
+        public string AuctionCreator { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
@@ -57,6 +75,7 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Models
         public Auction()
         {
             Bids = new Collection<Bid>();
+            IsFinished = "No";
         }
 
     }
