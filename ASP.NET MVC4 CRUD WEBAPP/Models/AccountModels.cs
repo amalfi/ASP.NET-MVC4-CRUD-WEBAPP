@@ -11,7 +11,7 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Models
     public class UsersContext : DbContext
     {
         public UsersContext()
-            : base("DefaultConnection")
+            : base("ASP.NET_MVC4_CRUD_WEBAPP.Models.AuctionsDataContext")
         {
         }
 

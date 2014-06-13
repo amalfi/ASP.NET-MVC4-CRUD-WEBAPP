@@ -99,6 +99,7 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
 
             return PartialView("_CurrentPrice", auction); 
         }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -106,6 +107,7 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
             ViewBag.CategoryList = categoryList;
             return View();
         }
+
         [HttpPost]
         [Authorize]
         public ActionResult Create([Bind(Exclude = "CurrentPrice")]Models.Auction auction)
@@ -123,6 +125,51 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
 
             return Create();
         }
+        
+        [HttpGet]
+        public ActionResult Edit(long id)
+        {
+           
+                var db = new AuctionsDataContext();
+                try
+                {
+                    var auction = db.Auctions.Find(id);
+                   
+                    return View(auction);
+                  
+                }
+                catch (DbEntityValidationException e)
+                {
+                    Console.WriteLine(e.StackTrace);
+                    throw;
+               }
+
+        }
+       [HttpPost] 
+       public ActionResult Edit(Auction auction)
+       {
+           var db = new AuctionsDataContext();
+           try
+           {
+               var auctionOriginal = db.Auctions.Find(auction.Id);
+               //how to replace existing lement with current element ?
+               if (auctionOriginal != null)
+               {
+                   db.Entry(auctionOriginal).CurrentValues.SetValues(auction);
+                   db.SaveChanges();
+               }
+              
+
+               return RedirectToAction("Index");
+
+           }
+           catch (DbEntityValidationException e)
+           {
+               Console.WriteLine(e.StackTrace);
+               throw;
+           }
+            
+       }
         public ActionResult Delete(long id)
         {
             var db = new AuctionsDataContext();
@@ -135,6 +182,8 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Controllers
 
             return RedirectToAction("Index");
         }
+
+
         [HttpPost]
         public ActionResult StopBinding(Bid bid) //method which set record in database ('cancelled' for 'true')
         {

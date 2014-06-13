@@ -38,7 +38,7 @@ namespace ASP.NET_MVC4_CRUD_WEBAPP.Filters
                         }
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    WebSecurity.InitializeDatabaseConnection("ASP.NET_MVC4_CRUD_WEBAPP.Models.AuctionsDataContext", "UserProfile", "UserId", "UserName", autoCreateTables: true);
                 }
                 catch (Exception ex)
                 {

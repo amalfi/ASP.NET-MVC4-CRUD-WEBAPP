@@ -256,6 +256,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\SAS.pubxml" />
+    <None Include="Properties\PublishProfiles\SAS2.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -320,6 +322,7 @@
     <Content Include="Views\Auction\_CurrentPrice.cshtml" />
     <Content Include="Views\Auction\FinishedAuctions.cshtml" />
     <Content Include="Views\Shared\_FinishedAuctionTile.cshtml" />
+    <Content Include="Views\Auction\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -331,6 +334,9 @@
     <EmbeddedResource Include="Migrations\201406071309262_InitialMigrations.resx">
       <DependentUpon>201406071309262_InitialMigrations.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
